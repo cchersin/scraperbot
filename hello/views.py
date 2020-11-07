@@ -14,11 +14,10 @@ def scrap(request):
   url = request.GET.get('url')
   token = request.GET.get('token')
   chat_id = request.GET.get('chat_id')
-  lastReadedItemIdx=1627
     
   lastReaded = lastReaded.objects.first()
   if lastReaded == nil:
-      lastReaded = LastReaded()
+      lastReaded = LastReaded(idx=1627)
 
   r =requests.get(url + '/index.php?page=documenti#1')
   text=r.text
@@ -36,13 +35,12 @@ def scrap(request):
     if item[6][0] == 'CIRCOLARI':
       data=item[1]
       itemIdx=int(item[10])
-      if itemIdx > lastReadedItemIdx:
+      if itemIdx > lastReaded.idx:
         msg=data + ' ' + item[4] + ' ' + url + '/' + item[5]
         r =requests.get('https://api.telegram.org/' + token + '/sendMessage?chat_id=' + chat_id + '&text=' + msg)
-        lastReadedItemIdx=itemIdx
+        lastReaded.idx=itemIdx
         count = count + 1
-        
-   lastReaded.idx = lastReadedItemIdx
+    
    lastReaded.save()
         
    return render(request, "scrap.html", { "count": count })
