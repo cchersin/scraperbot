@@ -35,7 +35,10 @@ def scrap(request):
         r =requests.get('https://api.telegram.org/' + token + '/sendMessage?chat_id=' + chat_id + '&text=' + msg)
         lastReadedItemIdx=itemIdx
         
-   return render(request, "scrap.html")
+   lastReaded.idx = lastReadedItemIdx
+   lastReaded.save()
+        
+   return render(request, "scrap.html", { "lastReadedIdx": lastReadedItemIdx })
 
 
 def db(request):
