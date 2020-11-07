@@ -15,7 +15,7 @@ def scrap(request):
   token = request.GET.get('token')
   chat_id = request.GET.get('chat_id')
     
-  lastReaded = LastReaded.objects.first()
+  lastReaded = LastReaded.objects.all()[:1].get()
   if lastReaded == nil:
       lastReaded = LastReaded(idx=1627)
 
