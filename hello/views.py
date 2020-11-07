@@ -15,6 +15,10 @@ def scrap(request):
   token = request.GET.get('token')
   chat_id = request.GET.get('chat_id')
   lastReadedItemIdx=1627
+    
+  lastReaded = lastReaded.objects.first()
+  if lastReaded == nil:
+      lastReaded = LastReaded()
 
   r =requests.get(url + '/index.php?page=documenti#1')
   text=r.text
