@@ -4,6 +4,7 @@ import requests
 import json
 
 from .models import Greeting
+from .models import LastReaded
 
 # Create your views here.
 def index(request):
