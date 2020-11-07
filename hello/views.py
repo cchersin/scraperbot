@@ -25,6 +25,8 @@ def scrap(request):
 
   items = json.loads(text)
   items = items[::-1]
+    
+  count = 0
 
   for item in items:
     if item[6][0] == 'CIRCOLARI':
@@ -34,11 +36,12 @@ def scrap(request):
         msg=data + ' ' + item[4] + ' ' + url + '/' + item[5]
         r =requests.get('https://api.telegram.org/' + token + '/sendMessage?chat_id=' + chat_id + '&text=' + msg)
         lastReadedItemIdx=itemIdx
+        count = count + 1
         
    lastReaded.idx = lastReadedItemIdx
    lastReaded.save()
         
-   return render(request, "scrap.html", { "lastReadedIdx": lastReadedItemIdx })
+   return render(request, "scrap.html", { "count": count })
 
 
 def db(request):
