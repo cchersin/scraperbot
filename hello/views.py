@@ -16,9 +16,11 @@ def scrap(request):
   token = request.GET.get('token')
   chat_id = request.GET.get('chat_id')
     
-  lastReaded = LastReaded.objects.all()[:1].get()
-  if lastReaded == nil:
-      lastReaded = LastReaded(idx=1627)
+  lastReaded = nil
+  try
+    lastReaded = LastReaded.objects.all()[:1].get()
+  except DoesNotExist:
+    lastReaded = LastReaded(idx=1627)
 
   r =requests.get(url + '/index.php?page=documenti#1')
   text=r.text
