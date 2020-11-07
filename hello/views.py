@@ -16,7 +16,7 @@ def scrap(request):
   token = request.GET.get('token')
   chat_id = request.GET.get('chat_id')
     
-  lastReaded = nil
+  lastReaded = None
   try:
     lastReaded = LastReaded.objects.all()[:1].get()
   except DoesNotExist:
