@@ -19,7 +19,7 @@ def scrap(request):
   lastReaded = None
   try:
     lastReaded = LastReaded.objects.all()[:1].get()
-  except DoesNotExist:
+  except Exception:
     lastReaded = LastReaded(idx=1627)
 
   r =requests.get(url + '/index.php?page=documenti#1')
